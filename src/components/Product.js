@@ -2,9 +2,7 @@ import { useStateValue } from '../StateProvider'
 import '../styles/Product.css'
 
 const Product = ({ id, title, image, price, rating }) => {
-    const [{ basket }, dispatch] = useStateValue()
-
-    console.log(basket)
+    const [{}, dispatch] = useStateValue()
 
     const addToBasket = () => {
         dispatch({
