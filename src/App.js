@@ -17,7 +17,6 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
-      console.log(authUser)
 
       if(authUser) {
         dispatch({
@@ -46,7 +45,9 @@ function App() {
           </Route>
           <Route path='/payment'>
             <Header />
-            <Payment />
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
           </Route>
           <Route path='/'>
             <Header />
