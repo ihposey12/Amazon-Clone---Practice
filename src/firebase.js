@@ -8,7 +8,7 @@ const firebaseConfig = {
     storageBucket: "clone-51973.appspot.com",
     messagingSenderId: "378510621501",
     appId: "1:378510621501:web:c569e7a5b1b0b9b8f6e354",
-    measurementId: "G-XBCEQMBGWN"
+    databaseURL: 'https://clone-51973.firebaseio.com'
   };
 
   const firebaseApp = firebase.initializeApp(firebaseConfig)

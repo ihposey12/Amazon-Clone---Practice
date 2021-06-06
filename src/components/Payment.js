@@ -3,13 +3,14 @@ import { useStateValue } from '../StateProvider'
 import CheckoutProduct from './CheckoutProduct'
 import { Link, useHistory } from 'react-router-dom'
 import '../styles/Payment.css'
-import { CardElement ,useElements, useStripe } from '@stripe/react-stripe-js'
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import CurrencyFormat from 'react-currency-format'
 import { getBasketTotal } from '../reducer'
-import axios from 'axios'
+import axios from '../axios'
+import { db } from '../firebase'
 
 const Payment = () => {
-    const [{ basket, user }] = useStateValue()
+    const [{ basket, user }, dispatch] = useStateValue()
     const history = useHistory()
     const [error, setError] = useState(null)
     const [disabled, setDisabled] = useState(true)
@@ -41,9 +42,19 @@ const Payment = () => {
                 card: elements.getElement(CardElement)
             }
         }).then(({ paymentIntent }) => {
+            db.collection('users').doc(user?.uid).collection('orders').doc(paymentIntent.id).set({
+                basket: basket,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
+            })
+            
             setSucceeded(true)
             setError(null)
             setProcessing(false)
+            
+            dispatch({
+                type: 'EMPTY_BASKET'
+            })
             history.replace('/orders')
         })
     }
