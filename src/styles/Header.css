@@ -58,6 +58,10 @@
     font-weight: 800;
 }
 
+.header_optionLineTwo:hover {
+    color: #f0c14b;
+} 
+
 .header_optionBasket{
     display: flex;
     align-items: center;
